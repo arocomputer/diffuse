@@ -3,10 +3,10 @@
 This bundle installs a tagged Diffuse release from published images. It
 contains the deployment manifest and operational documentation; the application
 source lives in the Diffuse repository under the
-[Business Source License 1.1](https://github.com/intuitums/diffuse/blob/main/LICENSE).
+[Business Source License 1.1](https://github.com/arocomputer/diffuse/blob/main/LICENSE).
 
 Diffuse is source-available under the
-[Business Source License 1.1](https://github.com/intuitums/diffuse/blob/main/LICENSE).
+[Business Source License 1.1](https://github.com/arocomputer/diffuse/blob/main/LICENSE).
 You may use it, modify it, and run it anywhere, including inside a commercial
 organization; the one thing the license does not permit is offering Diffuse
 itself to third parties as a hosted, managed, or embedded service, or selling
@@ -31,7 +31,7 @@ converts to Apache-2.0 in 2030.
    for image_ref in $(sed -n -E 's/^DIFFUSE(_[A-Z_]+)?_IMAGE=//p' .env); do
      cosign verify \
        --certificate-identity-regexp \
-         '^https://github.com/intuitums/diffuse/.github/workflows/release.yml@refs/tags/v' \
+         '^https://github.com/arocomputer/diffuse/.github/workflows/release.yml@refs/tags/v' \
        --certificate-oidc-issuer https://token.actions.githubusercontent.com \
        "$image_ref"
    done
