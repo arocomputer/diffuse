@@ -15,7 +15,7 @@ Issues and pull requests from forks are welcome. Report vulnerabilities to
 ## Getting set up
 
 ```sh
-git clone https://github.com/intuitums/diffuse
+git clone https://github.com/arocomputer/diffuse
 cd diffuse
 uv venv --seed .venv --python 3.12
 source .venv/bin/activate
