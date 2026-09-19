@@ -88,16 +88,20 @@ content rules. Never edit a migration after it ships: applied migrations are
 checksum-verified and drift fails closed at startup. The relay has its own
 migrations under `packages/relay/migrations/` with the same rule.
 
-## Git and pull requests
+## Branches and pull requests
 
 Public GitHub issues are the bug and feature queue; internal work planning
 does not live in this repository.
 
+- Before the first push, name the branch `<type>/<slug>`. Use the PR title's
+  conventional type or scope plus two or three lowercase words, for example
+  `bench/real-launches` or `fix/tool-tree-compaction`. Never push `main`, a bare
+  SHA, or a vague generated name.
 - Only commit files you changed in this session. Stage explicit paths; never
   `git add .` or `git add -A`.
 - Never `git reset --hard`, `git checkout .`, `git clean -fd`, `git stash`,
   `git commit --no-verify`, or force-push.
-- Never push `main`. Every change goes through a PR.
+- Every change goes through a PR.
 - Do not commit unless the user asks.
 - After code changes, run `./x check`. Run `./x integration` when the change
   touches `subprocess`, filesystem paths, the sandbox, or the mirror.
