@@ -184,7 +184,7 @@ LABEL org.opencontainers.image.title="Diffuse" \
       org.opencontainers.image.version="${DIFFUSE_VERSION}" \
       org.opencontainers.image.revision="${DIFFUSE_REVISION}" \
       org.opencontainers.image.created="${DIFFUSE_CREATED}" \
-      org.opencontainers.image.source="https://github.com/intuitums/diffuse"
+      org.opencontainers.image.source="https://github.com/arocomputer/diffuse"
 
 ENV DIFFUSE_SQL_DIR=/opt/diffuse/_internal/sql \
     DIFFUSE_GIT_ASKPASS=/opt/diffuse/_internal/diffuse/repository/git_askpass.sh \
