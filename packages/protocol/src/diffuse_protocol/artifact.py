@@ -19,11 +19,10 @@ from collections.abc import Iterable
 from dataclasses import dataclass, field
 from pathlib import Path, PurePosixPath
 
-# Source delivery is deliberately an in-memory signed envelope in the pilot.
-# A 16 MiB tar expands to roughly 29 MiB after its two base64 encodings, and
-# validation then makes a few short-lived copies.  Keep that bounded well below
-# the runner's 1 GiB container limit; larger repositories remain on the
-# transitional runtime until artifact transport is object-backed.
+# Source delivery currently uses an in-memory signed envelope. A 16 MiB tar
+# expands to roughly 29 MiB after its two base64 encodings, and validation then
+# makes a few short-lived copies. Keep that bounded well below the runner's
+# 1 GiB container limit. Larger repositories need an external artifact transport.
 DEFAULT_MAX_ARCHIVE_BYTES = 16 * 1024 * 1024
 DEFAULT_MAX_WORKSPACE_BYTES = 128 * 1024 * 1024
 DEFAULT_MAX_WORKSPACE_ENTRIES = 20_000

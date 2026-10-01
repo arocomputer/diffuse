@@ -1,8 +1,8 @@
 # Diffuse architecture
 
-A map for navigating the codebase. Read [v1-scope.md](v1-scope.md) first for
-the product boundary; this page explains how the code is organized and where
-each responsibility lives.
+A map for navigating the codebase. Read [product.md](product.md) for Diffuse's
+direction; this page explains how the current code is organized and where each
+responsibility lives.
 
 ## Runtime boundaries
 
@@ -50,7 +50,7 @@ the index:
 | Review orchestration | `diffuse/review/` | Build request, queue, dispatch to host, validate, assemble |
 | Publish review to GitHub | `diffuse/github/review_publish.py` | Idempotent Check / PR-comment publication |
 | Review persistence | `diffuse/database/review_store.py` | ORM models for runs, findings, publications |
-| Operator review CLI | `diffuse/cli/review.py` | Local-branch review |
+| Operator review CLI | `diffuse/cli/review.py` | Local review command; currently reports that execution is unavailable |
 | Context for the agent host | `diffuse/investigation/context_api.py`, `context_service.py` | Tool surface + proxy to the isolated runner |
 | Retrieval context | `diffuse/repository/retrieval/retrieve.py`, `context_models.py` | PR-diff context + immutable snapshot plan |
 | Custom context | `diffuse/database/custom_context.py` | Operator-managed context rows |
@@ -60,10 +60,10 @@ the index:
 *retrieval context* (the PR-diff plan), *custom context* (operator-authored
 rows), and *request context* (the immutable plan handed to a Review Agent).
 
-## Removed surfaces
+## Current integration surface
 
-Diffuse previously supported GitLab, a public MCP/REST surface, and automatic
-approval. Those were removed; this codebase is GitHub-only with no MCP service
-or auto-approval. Historical rows or queued payloads shaped by those surfaces
-are no longer accepted, and the `POLICY_SCHEMA_VERSION` sentinel no longer
-references them.
+The current source tree integrates with GitHub and exposes narrow private
+worker-to-Agent-Host protocols. It does not mount a general public REST API,
+public MCP service, or automatic pull-request approval path. These are facts
+about this implementation, not permanent product exclusions. Any new public
+interface or write action needs an explicit authorization and audit design.

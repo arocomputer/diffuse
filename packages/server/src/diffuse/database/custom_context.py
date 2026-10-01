@@ -1,7 +1,7 @@
 """Durable operator-managed custom context.
 
-Active contexts loaded for review still apply; operators manage rows out of
-band until a supported v1 path lands.
+Active contexts are loaded for review. Operators currently manage rows out of
+band while a first-class management workflow is developed.
 """
 
 from __future__ import annotations

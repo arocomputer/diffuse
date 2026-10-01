@@ -1,9 +1,10 @@
-# Diffuse v1 review configuration
+# Repository review configuration
 
-Diffuse v1 has one supported repository-owned configuration file:
-`.diffuse/config.json` at the repository root. It controls whether Diffuse
-reviews the repository, the paths it ignores, the severity floor, draft pull
-request behavior, and the bounded review plan.
+The current repository-owned configuration file is `.diffuse/config.json` at
+the repository root. It controls whether Diffuse reviews the repository, the
+paths it ignores, the severity floor, draft pull request behavior, and review
+planning. The `version` field versions this file format; it does not define the
+scope or ambition of the product.
 
 Separately from configuration, policy discovery indexes guidance documents
 for the review agents: `.diffuse/rules.md`, plus convention-named instruction
@@ -28,28 +29,20 @@ for the exact set.
 }
 ```
 
-`passes` is the current review-plan input. Its final `standard` and `deep`
-mapping is delivered with the CLI review-team contract; do not interpret it as
-permission to run an unbounded agent swarm. `status_check` controls the
-GitHub Check only. It never authorizes a pull request.
+`passes` is the current review-plan input. Its interpretation may evolve as
+review plans and engines grow. `status_check` controls the GitHub Check only;
+it does not authorize a pull-request decision.
 
-## Deliberate v1 limits
+## Configuration and product behavior
 
-- Diffuse never submits a GitHub `APPROVE` review. Any `auto_approval` setting
-  is rejected with a clear error.
-- `review.fix_with_agent` has been removed; Diffuse v1 does not publish agent
-  handoffs. Suggested-fix text may still appear on findings when present.
-- Nested `.diffuse/config.json` layers and `.diffuse/files.json` custom
-  context are implemented and active in policy discovery today, but they are
-  not part of the supported v1 configuration contract — do not build a new
-  setup on them until v1 scope admits them. The same caveat applies to other
-  fields the schema currently accepts beyond the example above (such as
-  `context.repos`, `security.preventative`, and the output-shaping fields);
-  `packages/server/src/diffuse/repository/policy/models.py` is authoritative. Automatic learned rules and
-  autonomous fixes are not supported v1 configuration.
-- Human-authored guidance and feedback remain part of the roadmap, but feedback
-  cannot silently change or suppress correctness/security findings.
+This example shows common settings, not the full configuration surface. The
+implementation in
+[`policy/models.py`](../packages/server/src/diffuse/repository/policy/models.py)
+defines accepted fields and validation. Policy discovery also finds nested
+`.diffuse/config.json` layers and `.diffuse/files.json` context; support and
+operator controls for these capabilities continue to evolve.
 
-Use [v1-scope.md](v1-scope.md) for the product boundary. The former exhaustive
-policy reference was removed because it described deferred behavior as a
-shipping feature.
+Automatic approval and agent-authored changes are not implemented by the current
+review flow, and their settings are rejected. They remain product and security
+design questions, not a permanent ban. Any implementation must make
+permissions, user intent, and resulting changes visible and auditable.

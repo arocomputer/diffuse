@@ -1,4 +1,4 @@
-"""The source and release environment examples describe Agent-only setup."""
+"""The source and release environment examples describe current setup."""
 
 from pathlib import Path
 

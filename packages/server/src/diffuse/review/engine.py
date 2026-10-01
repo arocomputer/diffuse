@@ -1,4 +1,4 @@
-"""Agent-only review execution compatibility boundary.
+"""Review execution boundary for configured Review Agents.
 
 Diffuse deliberately has no direct model client. A configured Review Agent
 receives one immutable investigation request and returns a structured report.

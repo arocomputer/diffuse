@@ -5,14 +5,14 @@ first pull request. These pages are the reference behind it.
 
 | Document | What it is |
 | --- | --- |
+| [product.md](product.md) | Durable product direction, principles, and opportunities to grow. |
 | [architecture.md](architecture.md) | Component map, the review lifecycle, and where each responsibility lives (resolves the repeated `review`/`context` nouns). |
-| [v1-scope.md](v1-scope.md) | The active product boundary and delivery order. Read this first when a legacy plan or capability claim conflicts with current v1 decisions. |
-| [agents.md](agents.md) | The active CLI review-runner boundary and investigation contract. |
-| [capabilities.md](capabilities.md) | The concise v1 shipping ledger. |
-| [configuration.md](configuration.md) | The intentionally small v1 root repository configuration. |
+| [capabilities.md](capabilities.md) | Snapshot of current capabilities and useful next work. |
+| [agents.md](agents.md) | Agent Host architecture, investigation contract, and current execution flow. |
+| [configuration.md](configuration.md) | Repository review configuration and policy discovery. |
 | [deployment.md](deployment.md) | Current self-hosted deployment and Diffuse GitHub App connection. |
 | [infisical-hosted-production.json.example](infisical-hosted-production.json.example) | Safe placeholder-only import template for GitHub Integration Service production configuration. |
-| [cli.md](cli.md) | Transitional CLI reference. Operator runner authentication remains private configuration, not a product API. |
+| [cli.md](cli.md) | CLI commands for installation, repository management, and review operations. |
 
 Elsewhere in the repository:
 
@@ -28,5 +28,6 @@ Elsewhere in the repository:
 - [`packages/relay/README.md`](../packages/relay/README.md) — operating the
   small public event and credential relay.
 
-The old `mcp.md` and `rest-api.md` documents were removed with their public
-product surfaces; they are not supported installation options.
+The current public and private integration surfaces are described in
+[capabilities.md](capabilities.md). Interfaces can grow as product needs and
+their authorization models are designed.

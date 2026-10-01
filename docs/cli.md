@@ -1,22 +1,14 @@
 # CLI
 
-> **Transitional CLI reference.** Public token, MCP, handoff, and generic-agent
-> commands described historically are removed from v1. The only v1 CLI-adjacent
-> concern is private operator configuration for an isolated Codex or Claude Code
-> review runner; see [agents.md](agents.md).
-
 `diffuse` is the command-line interface to a self-hosted installation. Its
 subcommands onboard and manage indexed repositories (`repository`, or its
 `repo` alias), inspect and migrate the PostgreSQL schema
 (`database`), sign in to and inspect Agent Host CLIs (`agent`), and configure
-the GitHub integration (`github`). The `cluster` (cross-repository context)
-and `learning` (feedback-derived rules) subcommands are transitional: v1 scope
-removes cross-repository context and defers rule learning, so do not build on
-them. Keep the CLI thin: easy GitHub connect and
-(later) local reviews against a Diffuse host. Connect/readiness diagnostics
-belong on the web dashboard — see [v1-scope.md](v1-scope.md) → Operator
-surfaces. Local-branch review is intentionally not available until it can use
-the hosted Review Access Grant contract.
+the GitHub integration (`github`). It also provides cluster and learning
+commands for cross-repository context and feedback-derived rules. These
+surfaces are part of the current implementation and can grow with the product.
+The CLI is one operator and developer interface; readiness is available through
+`diffuse status` and the service health endpoints.
 
 The production image's `diffuse` entrypoint is a superset of the packaged CLI:
 alongside the subcommands below it takes the service entrypoints Compose uses
@@ -66,7 +58,7 @@ creating a new deployment. Optional overrides: `--name`, `--write-env PATH`,
 `--print-secrets`, `--no-browser`, or `--code` for the advanced setup-page
 fallback. `diffuse github status` checks the Integration Service binding
 (ready/not-ready). `diffuse github disconnect` revokes the instance credential.
-`diffuse token` has been removed. Service-token minting is not part of v1.
+There is currently no `diffuse token` command or public service-token API.
 
 ## Repository controls
 
@@ -103,8 +95,7 @@ It is the required operator step after an upgrade that changes the index format.
   isolated candidate runner; the other engine runs a separate verifier
   investigation. Both Agent Hosts must be authenticated and available. Each
   receives its own short-lived capability, and the worker never executes either
-  CLI. Local `diffuse review` is unavailable until it can use the same session
-  contract.
+  CLI. The local `diffuse review` command is not yet connected to this flow.
 
 `diffuse agent` manages host plumbing for those CLIs:
 
@@ -146,11 +137,11 @@ refused outright.
 
 ## Local branch review
 
-`diffuse review` is intentionally unavailable in the Agent-only release. Push
-the branch and open or update a pull request; the configured Agent Host then
-receives the short-lived Review Access Grant and produces the review. This
-avoids a local process inheriting a developer's repository, credentials, or
-unbounded environment.
+The `diffuse review` command currently reports that local review is unavailable.
+The local workspace flow has not yet been connected to the isolated Agent Host
+and Review Access Grant path. GitHub pull-request reviews are available today;
+local review is a product opportunity, with the same credential and workspace
+isolation requirements.
 
 ## Exit codes
 

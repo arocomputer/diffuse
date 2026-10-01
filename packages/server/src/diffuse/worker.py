@@ -2565,7 +2565,7 @@ def validate_worker_configuration(*, verify_agent_clients: bool = True) -> None:
 
 
 def validate_worker_model_controls() -> None:
-    """Compatibility no-op for callers from releases before Agent-only reviews."""
+    """Compatibility no-op for callers from releases before hosted reviews."""
 
 
 def main() -> None:

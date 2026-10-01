@@ -130,8 +130,8 @@ examples:
 
 REVIEW_EPILOG = (
     """\
-Local branch review is unavailable in Agent-only Diffuse. The flags above are
-retained for the future local-review contract (see docs/v1-scope.md).
+Local branch review is not connected to the isolated Agent Host flow yet. This
+command reports the current status and does not run a review.
 
 """
     + EXIT_CODE_HELP
@@ -528,7 +528,7 @@ def _stderr_progress_reporter() -> ProgressReporter | None:
 
 
 def report_review_depth(stream: TextIO | None = None) -> None:
-    """Report that local model-depth selection is gone in Agent-only Diffuse."""
+    """Report that review depth is selected by the configured Review Agent."""
 
     print(
         "Review depth is controlled by the configured Review Agent; "
@@ -590,15 +590,15 @@ def run_local_review(
         raise ValueError(
             "The local diff changed after the unfinished review; start a new review"
         )
-    # Local branches cannot safely receive an Agent Host access grant yet. Keep
-    # the command explicit rather than falling back to an in-process model API.
+    # Local branches do not have an Agent Host access grant flow yet. Keep the
+    # command explicit rather than falling back to an in-process model API.
     selected_runtime = review_agent_name()
     if previous_state is not None and previous_state.review_agent != selected_runtime:
         raise ValueError(
             "REVIEW_AGENT changed after the unfinished run; start a new review"
         )
     raise ValueError(
-        "Local branch review is unavailable in Agent-only Diffuse. "
+        "Local branch review is not connected to an Agent Host yet. "
         "Push the branch and let the configured Agent Host review the pull request."
     )
 
@@ -811,12 +811,12 @@ def _build_parser() -> tuple[argparse.ArgumentParser, dict[str, argparse.Argumen
     subparsers = parser.add_subparsers(dest="command", required=True)
     review = subparsers.add_parser(
         "review",
-        help="Local branch review (unavailable in Agent-only Diffuse)",
+        help="Local branch review (not connected to an Agent Host yet)",
         description=(
-            "Local branch review is not available: local checkouts cannot yet receive\n"
-            "an Agent Host access grant, and Diffuse does not fall back to an\n"
-            "in-process model API. The command never runs a review. Push the branch\n"
-            "and let the configured Agent Host review the pull request."
+            "Local branch review is not connected to an Agent Host yet. This command\n"
+            "currently reports that status and does not run a review. Diffuse does\n"
+            "not fall back to an in-process model API. Push the branch and let the\n"
+            "configured Agent Host review the pull request."
         ),
         epilog=REVIEW_EPILOG,
         formatter_class=argparse.RawDescriptionHelpFormatter,
