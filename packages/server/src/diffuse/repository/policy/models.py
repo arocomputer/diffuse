@@ -344,19 +344,20 @@ class RepositoryConfig(StrictPolicyModel):
 
     @model_validator(mode="before")
     @classmethod
-    def reject_removed_keys(cls, value):
+    def reject_unimplemented_features(cls, value):
+        """Reject settings that have no runtime behavior rather than ignore them."""
         if not isinstance(value, dict):
             return value
         if "auto_approval" in value:
             raise ValueError(
-                "auto_approval has been removed: Diffuse v1 never submits "
-                "GitHub APPROVE reviews"
+                "auto_approval is not implemented: automatic GitHub approvals "
+                "are not available in the current review flow"
             )
         review = value.get("review")
         if isinstance(review, dict) and "fix_with_agent" in review:
             raise ValueError(
-                "fix_with_agent has been removed: Diffuse v1 does not publish "
-                "agent handoffs"
+                "fix_with_agent is not implemented: agent-authored changes are "
+                "not available in the current review flow"
             )
         return value
 

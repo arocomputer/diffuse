@@ -406,10 +406,10 @@ def resolve_cross_repository_context(
     file that is committed to the repository under review, so it is attacker
     controlled by anyone with merge access there. An entry is therefore a
     *request* to narrow retrieval, never a grant: it is honoured only when an
-    operator has already placed that repository in a cluster with the primary
-    one, which is the same boundary the REST and MCP surfaces enforce. Entries
-    the operator never clustered are dropped and reported, not fatal -- a
-    misconfigured ``.diffuse`` must not stop the review it belongs to.
+    operator has already placed that repository in a cluster with the primary.
+    Entries for repositories the operator has not clustered are dropped and
+    reported, not fatal: a misconfigured ``.diffuse`` must not stop the review
+    it belongs to.
     """
     if len(explicit_repositories) > MAX_RELATED_REPOSITORIES:
         raise CrossRepositoryContextError(

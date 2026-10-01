@@ -1,8 +1,4 @@
-# Agents
-
-> **Status: active v1 direction.** This page replaces the old “agent runtime”
-> plan. When code or an older document conflicts with it, follow
-> [v1-scope.md](v1-scope.md).
+# Agent Hosts and review engines
 
 Diffuse owns GitHub webhook ingestion, commit-pinned context, orchestration,
 verification, lineage, and publication. Codex and Claude Code are isolated,
@@ -26,15 +22,17 @@ bounded vendor egress, and private access to the exact immutable context it was
 issued. It has no database, GitHub App, operator API token, branch-write, or
 arbitrary-network access.
 
-The transport may use a narrowly scoped internal protocol, but it is not a
-public MCP server and is not a product integration surface. It must expose only
-the context operations required for a review investigation.
+The current transport is a private, narrowly scoped protocol that exposes the
+context operations needed by an investigation. It is one implementation of the
+Review Agent contract; future engines and integrations can use other contracts
+with their own explicit permissions.
 
 ## Investigation contract
 
 An investigation is bound to one repository, pull request, index snapshot, and
-head SHA. It has a strict timeout, bounded work budget, role, and read-only
-operation allowlist.
+head SHA. The current runtime supplies a role, time and work budgets, and a
+read-only operation allowlist. Defaults protect shared resources and can evolve
+with operator needs.
 
 Its output is a **candidate**, not a final review. Every candidate must name:
 
@@ -48,31 +46,17 @@ result and can reject any candidate. The verifier is bound to the candidate
 result digest; omitted decisions reject. Diffuse performs final exact-head
 validation, deduplication, lineage changes, and GitHub publication.
 
-## Delivery sequence
-
-1. Keep the runner isolation boundary and private, exact-head context access.
-2. Keep configuration and operator language aligned on Review Agents, Agent
-   Hosts, Investigations, and Review Access Grants.
-3. Complete one end-to-end Codex review engine, including verification and
-   publication. Add Claude through the same contract.
-4. After evidence from the single-engine path, add the bounded correctness,
-   security, and integration team plus a verifier.
-
-## Transitional implementation
-
-Direct model API execution is retired. Reviews use the Agent Host contract;
-provider routing, public MCP, conversation, and Q&A are not part of v1.
-
-### Current private transport foundation
+## Current transport and extension points
 
 The worker creates a deterministic, bounded source artifact from the exact
 checked-out head and signs both its transport digest and canonical workspace
 digest into the private dispatch. The runner validates and materializes that
 artifact as a read-only workspace before starting the CLI; it never clones,
-mounts a repository mirror, or receives SCM credentials. The in-envelope
-foundation is limited to a 16 MiB source archive, a 128 MiB extracted tree, and
-one active review per 1 GiB runner while larger delivery moves to object-backed
-transport.
+mounts a repository mirror, or receives SCM credentials. The current transport
+uses an in-envelope source archive with limits of 16 MiB compressed and 128 MiB
+extracted, and schedules one active review per 1 GiB runner. These are current
+implementation limits that can change as repository size and throughput needs
+grow.
 
 Scoped private context access is bound to the repository, pull request,
 snapshot, head, review attempt, exact bearer digest, and capability lifetime.
@@ -82,4 +66,6 @@ budgets, result digests, lifecycle states, and token accounting.
 `REVIEW_AGENT` selects the candidate engine. Its values are `codex` and
 `claude`; the other engine verifies, so both authenticated Agent Hosts must be
 running. Both execute only through an isolated Agent Host. Session capabilities
-are the internal representation of a Review Access Grant, not a public API.
+are the internal representation of a Review Access Grant. New engines can join
+this contract, and future clients can use a public contract designed for their
+workflows without inheriting the private transport's assumptions.

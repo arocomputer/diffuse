@@ -10,17 +10,21 @@ STATUS: ONLINE
 ///
 
 OVERVIEW:
- - Self-hosted GitHub pull-request review.
- - Pins the exact pull-request head and repository context.
- - Runs bounded, read-only Codex and Claude Code CLI investigations.
+ - Tools to understand and improve software changes across repositories and
+   development workflows.
+ - Today, a self-hosted GitHub pull-request reviewer that pins the exact head
+   and repository context.
+ - Runs isolated, read-only Codex and Claude Code investigations.
  - Verifies candidate findings before publishing a review and GitHub Check.
 
 ///
 
-V1 BOUNDARY:
- - Diffuse is a review product, not a general-purpose agent platform.
- - It does not auto-approve, mutate branches, or promise to find every defect.
- - The repository still contains transitional code from an earlier direction.
+PRODUCT DIRECTION:
+ - Grow from pull-request review into useful code understanding and review
+   wherever developers work.
+ - Give individuals and teams flexible review engines, repository context,
+   integrations, and automation.
+ - Keep security, user control, quality, and practical deployment at the center.
 
 FLOW:
  PULL REQUEST -> CONTEXT -> INVESTIGATION -> VERIFICATION -> REVIEW + CHECK
@@ -35,7 +39,8 @@ LICENSE:
 ///
 
 REFERENCE:
- - [V1 scope](./docs/v1-scope.md)
+ - [Product direction](./docs/product.md)
+ - [Current product map](./docs/capabilities.md)
  - [Documentation](./docs/README.md)
  - [Contributing](./CONTRIBUTING.md)
  - [Deployment](./deploy/README.md)

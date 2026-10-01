@@ -89,8 +89,10 @@ discussed before the code lands.
 - Database changes are numbered migrations under `packages/server/migrations/`;
   the frozen `schema.sql` and every shipped migration are checksum-verified
   and editing them in place fails closed at startup.
-- The product boundary is [docs/v1-scope.md](docs/v1-scope.md). Read it first
-  whenever an older document or code comment conflicts with it.
+- [docs/product.md](docs/product.md) describes Diffuse's direction and durable
+  principles. [docs/capabilities.md](docs/capabilities.md) records what the
+  current implementation supports. Treat missing capabilities as open product
+  work, not permanent exclusions.
 
 Contributions are accepted under the Business Source License 1.1, without a
 separate contributor agreement. Submitting a PR says the work may ship under

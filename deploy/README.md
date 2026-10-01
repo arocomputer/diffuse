@@ -99,8 +99,9 @@ For example, `diffuse repository list` becomes
 `docker compose --env-file .env run --rm worker repository list`. The available
 subcommands are `repository`, `cluster`, `learning`, `database`, `agent`, and
 `github`; each accepts `--help`. Pull-request review is performed by the worker
-and configured Agent Host, not through a local branch command. The former
-`token` subcommand has been removed from v1.
+and configured Agent Host, not through a local branch command. There is
+currently no `token` subcommand; the operator connects the GitHub installation
+through `diffuse github`.
 
 ## Obtaining this bundle and later ones
 

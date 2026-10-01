@@ -70,7 +70,8 @@ The following are explicitly **in scope**:
   `DIFFUSE_GITHUB_INTEGRATION_CREDENTIAL_KEK`; dispatch envelopes must keep
   capability bearers sealed under `DIFFUSE_REVIEW_AGENT_TRANSPORT_SECRET`.
   Historical `DIFFUSE_API_TOKEN` / repository-scoped service-token surfaces are
-  removed from v1; leftover schema rows are not a live auth boundary.
+  not active in the current application; leftover schema rows are not a live
+  auth boundary.
 - **Authorization bypass.** Reading or writing another repository's index or
   findings outside the repository the authenticated installation or operator
   session is authorized for.
@@ -83,12 +84,13 @@ The following are explicitly **in scope**:
 - **Database migration integrity** failures that allow unverified SQL to be
   applied.
 
-Public MCP, public REST (`/api/v1`), browser OAuth/session routes
-(`/auth/cli`, `/auth/github/callback`, `/setup`), and service-token minting
-are removed from the v1 surface. Do not report them as live product
-vulnerabilities; residual schema or historical docs are not an invitation to
-treat those routes as mounted. Private worker-to-runner transport remains in
-scope.
+The current application does not mount a public MCP service, general public
+REST API (`/api/v1`), browser OAuth/session routes (`/auth/cli`,
+`/auth/github/callback`, `/setup`), or service-token minting. Residual schema
+and historical code are not evidence that those routes are mounted. Report
+reachable behavior in the current deployment; any new public route or
+credential surface needs an explicit authorization and security design.
+Private worker-to-Agent-Host transport remains in scope.
 
 ### Agent-CLI review boundary
 
@@ -96,8 +98,9 @@ Diffuse's architecture is control plane + isolated Agent Host: the
 worker never executes a CLI or mounts agent credentials. Session capabilities
 and structured results are defined in `diffuse_protocol`. The
 self-hosted deployment selects `REVIEW_AGENT=claude` or `codex` and dispatches
-it to the matching Agent Host. Local branch review is unavailable until it can
-use that same Review Access Grant contract. The boundaries are:
+it to the matching Agent Host. The current local branch review command does not
+run a review; connecting it to an Agent Host is an open product task. It must
+preserve the credential and workspace boundaries below. The boundaries are:
 
 1. **Child environment allowlist** — credentials Diffuse does not name never
    reach the CLI process (`GH_TOKEN`, `GITHUB_TOKEN`, `SSH_AUTH_SOCK`, `AWS_*`,

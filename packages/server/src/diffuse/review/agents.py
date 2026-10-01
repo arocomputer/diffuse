@@ -2,7 +2,7 @@
 
 A review runtime turns a `ReviewRequest` into a `ReviewReport`. Diffuse owns
 the contract; the runtime supplies the investigation. See
-`docs/agents.md` and the CLI-native agent operation plan.
+`docs/AGENTS.md` and the CLI-native agent operation plan.
 
 `claude` and `codex` dispatch over the private Agent Host network to an
 isolated environment; the worker never executes either vendor binary.

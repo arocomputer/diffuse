@@ -125,8 +125,8 @@ pip-compile requirements.txt --output-file=requirements.lock \
 
 ## Where to read more
 
-- [docs/v1-scope.md](docs/v1-scope.md) — the active product boundary. Read it
-  first whenever an older document or code comment conflicts with it.
+- [docs/product.md](docs/product.md) — product direction and durable principles.
+- [docs/capabilities.md](docs/capabilities.md) — current capability snapshot.
 - [docs/architecture.md](docs/architecture.md) — component map and review
   lifecycle.
 - [docs/README.md](docs/README.md) — index of the remaining reference docs.
