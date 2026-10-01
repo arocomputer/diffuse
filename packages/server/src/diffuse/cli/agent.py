@@ -3,7 +3,7 @@
 `REVIEW_AGENT=claude|codex` investigations execute only in their isolated
 matching Agent Host. Local-branch review is unavailable until it can receive
 the same Review Access Grant; there is no direct-model fallback. See
-`docs/agents.md`.
+`docs/AGENTS.md`.
 """
 
 from __future__ import annotations

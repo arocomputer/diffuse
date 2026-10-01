@@ -89,7 +89,7 @@ It is the required operator step after an upgrade that changes the index format.
 ## Review runtimes
 
 `REVIEW_AGENT` selects what produces a review. See
-[agents.md](agents.md) for the full split.
+[AGENTS.md](AGENTS.md) for the full split.
 
 - **`claude` / `codex`** — `REVIEW_AGENT=claude` or `codex` selects the
   isolated candidate runner; the other engine runs a separate verifier
@@ -123,7 +123,7 @@ operator. `--device-auth` prints a URL and a one-time code you complete from
 anywhere; the default Codex flow instead waits on a browser reaching the host's
 own localhost. Codex's `-c` / `--config` and `-p` / `--profile` are refused,
 because they rewrite or select the `config.toml` Diffuse just persisted; see
-`docs/agents.md`.
+`docs/AGENTS.md`.
 
 `diffuse agent status` reports the version floor as well as the sign-in. Claude's
 sandbox settings are version-gated and are *silently ignored* by older builds,

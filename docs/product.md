@@ -39,7 +39,7 @@ Diffuse receives GitHub events, indexes repository snapshots, builds review
 context, dispatches isolated Codex or Claude Code investigations, verifies
 candidate findings, and publishes reviews and GitHub Checks. The worker and
 Agent Hosts have separate credentials and responsibilities. See
-[architecture.md](architecture.md) and [agents.md](agents.md) for the current
+[architecture.md](architecture.md) and [AGENTS.md](AGENTS.md) for the current
 implementation.
 
 ## Product areas to grow

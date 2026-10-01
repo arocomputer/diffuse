@@ -8,7 +8,7 @@ first pull request. These pages are the reference behind it.
 | [product.md](product.md) | Durable product direction, principles, and opportunities to grow. |
 | [architecture.md](architecture.md) | Component map, the review lifecycle, and where each responsibility lives (resolves the repeated `review`/`context` nouns). |
 | [capabilities.md](capabilities.md) | Snapshot of current capabilities and useful next work. |
-| [agents.md](agents.md) | Agent Host architecture, investigation contract, and current execution flow. |
+| [AGENTS.md](AGENTS.md) | Agent Host architecture, investigation contract, and current execution flow. |
 | [configuration.md](configuration.md) | Repository review configuration and policy discovery. |
 | [deployment.md](deployment.md) | Current self-hosted deployment and Diffuse GitHub App connection. |
 | [infisical-hosted-production.json.example](infisical-hosted-production.json.example) | Safe placeholder-only import template for GitHub Integration Service production configuration. |
