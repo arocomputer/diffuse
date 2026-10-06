@@ -1,7 +1,13 @@
-## Checklist
+## What and why
 
-- [ ] `./x check` passes (ruff + the unit suite)
-- [ ] `./x integration` passes when the change touches `subprocess`, filesystem paths, the sandbox, or the mirror
-- [ ] Migrations are added under `packages/server/migrations/` (never edit `schema.sql`); `diffuse database migrate` applies cleanly
-- [ ] No secrets are committed and `.gitleaks.toml` coverage is intact
-- [ ] Comments and docs touched by this change are updated, and `AGENTS.md` still matches reality
+<!-- Describe the problem, the change, and why this approach fits. -->
+
+## Verification
+
+- `./x check` —
+- `./x integration` (subprocess/filesystem/sandbox/mirror changes) —
+
+<!-- Covers Ruff lint and offline unit tests.
+     Record results, skipped integration tests, and any limitations; remove N/A commands.
+     Add focused behavior tests and update affected docs. Never include secrets.
+     Migration changes are numbered additions; never edit shipped migrations/schema.sql. -->
