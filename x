@@ -4,12 +4,14 @@
 set -eu
 cd "$(dirname "$0")"
 
+# Print help; unsupported commands or arguments exit 2.
 usage() {
   echo "usage: ./x [check|test|integration|lint|fmt] [args...]" >&2
-  exit 2
+  echo "check/integration/help: no arguments; lint/fmt/test: arguments pass through" >&2
+  exit "${1:-2}"
 }
 
-command=${1:-check}
+command=${1-check}
 if [ "$#" -gt 0 ]; then
   shift
 fi
@@ -40,7 +42,8 @@ case "$command" in
     ruff format "$@"
     ;;
   -h|--help|help)
-    usage
+    [ "$#" -eq 0 ] || usage
+    usage 0
     ;;
   *)
     usage
