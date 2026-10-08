@@ -29,14 +29,17 @@ second (its ranges are then already satisfied), the package last with
 `--no-deps` so pinned requirements are not re-resolved. When
 `python3.12` is not on PATH, `uv venv --python 3.12` fetches it.
 
-`./x` is the single entry point for every check. CI runs the same commands, so
+`./x` defaults to `check`. Use `./x --help` for commands.
+`lint`, `fmt`, and `test` forward arguments to Ruff/pytest; `check`,
+`integration`, and help reject extra arguments. `check` does not rewrite source
+files. CI uses the same `./x` commands, so
 a green `./x check` locally is the same green CI sees:
 
 ```sh
-./x check        # ruff + the unit suite; the fast definition of green
+./x check        # Ruff lint and offline unit tests
 ./x test         # pytest, arguments pass through
 ./x integration  # the full suite in the shipped image against disposable PostgreSQL
-./x fmt          # ruff format
+./x fmt          # ruff format (writes); ./x fmt --check is read-only
 ```
 
 ## Where things live

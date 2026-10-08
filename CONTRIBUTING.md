@@ -32,13 +32,16 @@ PATH, `uv venv --python 3.12` fetches it.
 
 ## Everyday checks
 
-`./x` is the single entry point, and CI runs the same commands:
+`./x` defaults to `check`. Use `./x --help` for commands.
+`lint`, `fmt`, and `test` forward arguments to Ruff/pytest; `check`,
+`integration`, and help reject extra arguments. `check` does not rewrite source
+files. CI uses the same `./x` commands:
 
 ```sh
-./x check        # ruff + the unit suite; the fast definition of green
+./x check        # Ruff lint and offline unit tests
 ./x test         # pytest, arguments pass through
 ./x integration  # the full suite in the shipped image against disposable PostgreSQL
-./x fmt          # ruff format
+./x fmt          # ruff format (writes); ./x fmt --check is read-only
 ```
 
 The unit suite needs no database or network. The integration suite needs

@@ -106,6 +106,8 @@ jobs:
           target: test-runner
           load: true
           tags: ${{ env.TEST_IMAGE }}
+          cache-from: type=gha,scope=diffuse-ci-tests
+          cache-to: type=gha,scope=diffuse-ci-tests,mode=max,ignore-error=true,timeout=5m
 
       - name: Test
         run: |
@@ -133,6 +135,8 @@ jobs:
           context: .
           load: true
           tags: ${{ env.APP_IMAGE }}
+          cache-from: type=gha,scope=diffuse-ci-app
+          cache-to: type=gha,scope=diffuse-ci-app,mode=max,ignore-error=true,timeout=5m
 
       - name: Build Agent Host images
         run: |
