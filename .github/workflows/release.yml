@@ -183,7 +183,7 @@ jobs:
           touch "/tmp/digests/codex-${{ matrix.architecture }}-${CODEX_DIGEST#sha256:}"
 
       - name: Upload digests
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: digests-${{ strategy.job-index }}
           path: /tmp/digests/*
@@ -334,7 +334,7 @@ jobs:
       # this to the two places operators can actually fetch it from, so
       # the retention here is deliberately one day.
       - name: Hand the bundle to the distribute job
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: diffuse-self-host-${{ github.run_id }}
           path: |
