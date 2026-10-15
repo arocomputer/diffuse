@@ -1,6 +1,6 @@
 [build-system]
 # >=77 is required for the SPDX license expression below.
-requires = ["setuptools>=77"]
+requires = ["setuptools>=84.0.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
