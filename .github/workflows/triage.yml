@@ -44,7 +44,7 @@ jobs:
             add_label documentation 0075ca 'Documentation changes' || true
           echo "$files" | grep -Eq '^(\.github/|scripts/|Dockerfile$|compose\.|x$)' && \
             add_label area:infra 6f42c1 'Build, CI, release, or repository automation' || true
-          echo "$files" | grep -Eq '^(requirements|\.github/dependabot\.yml)' && \
+          echo "$files" | grep -Eq '^(requirements|\.github/workflows/deps\.yml)' && \
             add_label dependencies 0366d6 'Dependency or toolchain changes' || true
           echo "$files" | grep -Eq '^(packages/host/src/diffuse_host/sandbox\.py|packages/server/src/diffuse/repository/policy/|packages/relay/|Dockerfile$|\.github/|\.gitleaks\.toml)' && \
             add_label security-surface b60205 'Touches a reviewed trust boundary' || true
