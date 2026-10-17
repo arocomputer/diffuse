@@ -1,0 +1,53 @@
+name: Dependency updates
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: deps-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pip-tools==7.6.2
+      - run: pip-compile --upgrade --allow-unsafe --generate-hashes --no-index --output-file=requirements.lock --strip-extras requirements.txt
+      - name: Check the updated dependencies
+        run: ./x check
+      - name: Open a grouped dependency PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          files="requirements.lock"
+          read -r -a update_files <<< "$files"
+          if git diff --quiet -- "${update_files[@]}"; then
+            echo 'No dependency updates.'
+            exit 0
+          fi
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git checkout -B chore/dependency-updates
+          git add -- "${update_files[@]}"
+          git commit -m 'chore: update dependencies'
+          if [ "$(gh pr list --state open --head chore/dependency-updates --json number --jq length)" -gt 0 ]; then
+            echo 'An update PR is already open; leaving it for review.'
+            exit 0
+          fi
+          git push origin --delete chore/dependency-updates 2>/dev/null || true
+          git push origin chore/dependency-updates
+          gh pr create --base main --head chore/dependency-updates --title 'chore: update dependencies' --body 'Grouped dependency updates. The repository check ran before opening this PR.'
